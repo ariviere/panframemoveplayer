@@ -14,6 +14,7 @@ import java.util.*;
 
 import com.panframe.android.lib.*;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -45,7 +46,8 @@ public class SimpleStreamPlayerActivity extends FragmentActivity implements PFAs
 	Button				_touchButton;
 	SeekBar				_scrubber;
 	Button				_orientationButton;
-	
+	int 				_currentOrientation;
+
 	/**
 	 * Creation and initalization of the Activitiy.
 	 * Initializes variables, listeners, and starts request of a movie list.
@@ -78,10 +80,13 @@ public class SimpleStreamPlayerActivity extends FragmentActivity implements PFAs
 		_scrubber.setEnabled(false);
 
 		// Apple's reference example
-		loadVideo("http://devimages.apple.com/iphone/samples/bipbop/gear1/prog_index.m3u8");
+		loadVideo("http://www.nacentapps.com/m3u8/index.m3u8");
 
-		showControls(true);		
-		
+		showControls(true);
+
+		final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+		_currentOrientation = display.getRotation();
+
 	}
    
 	/**
@@ -252,12 +257,8 @@ public class SimpleStreamPlayerActivity extends FragmentActivity implements PFAs
 		public void onClick(View v) {
 			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-				_frameContainer.removeView(_pfview.getView());
-				_frameContainer2.addView(_pfview.getView());
 			} else {
 				setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-				_frameContainer2.removeView(_pfview.getView());
-				_frameContainer.addView(_pfview.getView());
 			}
 		}
 	};
@@ -291,6 +292,21 @@ public class SimpleStreamPlayerActivity extends FragmentActivity implements PFAs
 		super.onConfigurationChanged(newConfig);
 
 
+		final Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+		switch (display.getRotation()) {
+			case Surface.ROTATION_0:
+				_pfview.setViewRotation(- 90 * _currentOrientation);
+				break;
+			case Surface.ROTATION_90:
+				_pfview.setViewRotation(90 -  90 * _currentOrientation);
+				break;
+			case Surface.ROTATION_270:
+				_pfview.setViewRotation(-90 - 90 * _currentOrientation);
+				break;
+			default:
+				break;
+		}
 	}
 
 	/**
