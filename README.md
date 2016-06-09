@@ -1,6 +1,3 @@
-# PanFrame Move Player
+# PanFrame rotate PFView
 
-Removing the player from its current view and adding it to a different one is not working. By doing that, we still have sound, the seekbar continues to move forward but the player shows a black screen.
-
-On the Android Monitor, the same message appears repeatedly : 
-"E/GLConsumer: [SurfaceTexture-2-11807-0] checkAndUpdateEglState: invalid current EGLContext".
+On line 256 of SimpleStreamPlayerActivity, you can find the method for the click on “orientation” button. And on line 291, you’ll find the method “onConfigurationChanged” where I manually rotate the screen with the PFView.setViewRotation method. From this point, when you move your device, the image is skewed.
