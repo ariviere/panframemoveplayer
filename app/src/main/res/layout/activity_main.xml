@@ -13,14 +13,14 @@
             android:layout_height="match_parent" >
 
             <Button
-                android:id="@+id/stopbutton"
+                android:id="@+id/newbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignTop="@+id/playbutton"
                 android:background="#AA000000"
-                android:text="stop"
+                android:text="new"
                 android:textColor="#fff"
                 android:textSize="14sp"
                 android:width="80dp" />
@@ -60,7 +60,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignTop="@+id/scrubber"
                 android:layout_marginLeft="1dp"
-                android:layout_toRightOf="@+id/stopbutton"
+                android:layout_toRightOf="@+id/newbutton"
                 android:background="#AA000000"
                 android:text="play"
                 android:textColor="#fff"
